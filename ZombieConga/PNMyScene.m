@@ -109,7 +109,7 @@ static const float BG_POINTS_PER_SEC = 50;
             _gameOver = NO;
             
             
-            for(int i = 0; i < 2; i++){
+            for(int i = 0; i < 3; i++){
                 SKSpriteNode *bg = [SKSpriteNode spriteNodeWithImageNamed:@"background"];
                 bg.anchorPoint = CGPointZero;
                 bg.position = CGPointMake(i * bg.size.width, 0);
@@ -297,7 +297,7 @@ rotateRadiansPerSec:(CGFloat) rotateRadiansPerSec
     
     [_bgLayer addChild:enemy];
     
-    SKAction *actionMove = [SKAction moveByX:-self.size.width + enemy.size.width  y:0 duration:2.0];
+    SKAction *actionMove = [SKAction moveByX:-self.size.width + enemy.size.width / 2  y:0 duration:2.0];
     SKAction *actionRemove = [SKAction removeFromParent];
     [enemy runAction:[SKAction sequence:@[actionMove, actionRemove]]];
 }
