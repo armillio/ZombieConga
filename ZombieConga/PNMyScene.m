@@ -117,15 +117,6 @@ static const float BG_POINTS_PER_SEC = 50;
                 [_bgLayer addChild:bg];
             }
             
-            /*bg.position = CGPointMake(self.size.width/2,
-                                      self.size.height/2);
-            bg.position = CGPointMake(self.size.width / 2,
-                                      self.size.height / 2);
-            bg.anchorPoint = CGPointMake(0.5,
-                                         0.5);*/
-//            CGSize mySize = bg.size;
-//            NSLog(@"Size: %@", NSStringFromCGSize(mySize));
-            
             _zombie = [SKSpriteNode spriteNodeWithImageNamed:@"zombie1"];
             _zombie.position = CGPointMake(100,
                                            100);
@@ -297,14 +288,16 @@ rotateRadiansPerSec:(CGFloat) rotateRadiansPerSec
 -(void) spawnEnemy{
     SKSpriteNode *enemy = [SKSpriteNode spriteNodeWithImageNamed:@"enemy"];
     enemy.name  = @"enemy";
-    enemy.position = CGPointMake(
-                                 self.size.width + enemy.size.width/2,
-                                 ScalarRandomRange(enemy.size.height/2,
-                                                   self.size.height-enemy.size.height/2));
+    
+    CGPoint enemyScenePos = CGPointMake(self.size.width + enemy.size.width/2,
+                                        ScalarRandomRange(enemy.size.height/2,
+                                                          self.size.height-enemy.size.height/2));
+    
+    enemy.position = [_bgLayer convertPoint:enemyScenePos fromNode:self];
     
     [_bgLayer addChild:enemy];
-
-    SKAction *actionMove = [SKAction moveToX:-enemy.size.width/2 duration:2.0];
+    
+    SKAction *actionMove = [SKAction moveByX:-self.size.width + enemy.size.width  y:0 duration:2.0];
     SKAction *actionRemove = [SKAction removeFromParent];
     [enemy runAction:[SKAction sequence:@[actionMove, actionRemove]]];
 }
@@ -323,8 +316,12 @@ rotateRadiansPerSec:(CGFloat) rotateRadiansPerSec
 -(void) spawnCat{
     SKSpriteNode *cat = [SKSpriteNode spriteNodeWithImageNamed:@"cat"];
     cat.name = @"cat";
-    cat.position = CGPointMake(ScalarRandomRange(0, self.size.width),
-                               ScalarRandomRange(0, self.size.height));
+    
+    CGPoint catScenePos = CGPointMake(ScalarRandomRange(0, self.size.width),
+                                     ScalarRandomRange(0, self.size.height));
+    
+    cat.position = [_bgLayer convertPoint:catScenePos fromNode:self];
+    
     cat.xScale = 0;
     cat.yScale = 0;
     
