@@ -22,10 +22,8 @@
         SKAction *wait = [SKAction waitForDuration:3.0];
         SKAction *block = [SKAction runBlock:^{
             PNMainMenuScene *myScene = [[PNMainMenuScene alloc] initWithSize:self.size];
-            //SKTransition *reveal = [SKTransition flipHorizontalWithDuration:0.5];
             
             [self.view presentScene:myScene];
-            // transition:reveal
         }];
         [self runAction:[SKAction sequence:@[wait, block]]];
         
